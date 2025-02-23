@@ -9,7 +9,7 @@
 (function() {
     'use strict';
 
-    // Function to scan and remove divs with ::before containing "Advertentie"
+    // Function to scan and remove divs with ::before containing "dvertentie". They split up the "concent" field into "A" "dvertentie" ¯\_(ツ)_/¯
     function removeAds() {
         document.querySelectorAll('div').forEach(el => {
             const pseudoContent = window.getComputedStyle(el, '::before').getPropertyValue('content');
