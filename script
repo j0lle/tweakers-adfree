@@ -1,0 +1,28 @@
+// ==UserScript==
+// @name         Tweakers Ad Remover
+// @version      1.0
+// @description  Remove ad containers based on ::before content on tweakers.net
+// @match        *://tweakers.net/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Function to scan and remove divs with ::before containing "Advertentie"
+    function removeAds() {
+        document.querySelectorAll('div').forEach(el => {
+            const pseudoContent = window.getComputedStyle(el, '::before').getPropertyValue('content');
+            // Remove surrounding quotes, if any
+            const normalizedContent = pseudoContent.replace(/^"(.*)"$/, '$1');
+            if(normalizedContent.includes("dvertentie")) {
+                el.remove();
+            }
+        });
+    }
+
+    // Run the function once the page loads...
+    window.addEventListener('load', removeAds);
+    // ...and then periodically, to catch dynamically inserted ads.
+    setInterval(removeAds, 500);
+})();
